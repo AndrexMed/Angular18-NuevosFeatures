@@ -2,7 +2,7 @@ import { Routes } from '@angular/router';
 
 const contactsRoute: Routes = [
     {
-        path: 'contacts',
+        path: '',
         loadComponent: () => import('./lists/lists.component').then(m => m.ListsComponent)
     }
 ];
