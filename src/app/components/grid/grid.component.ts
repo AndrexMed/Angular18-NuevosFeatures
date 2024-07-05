@@ -6,18 +6,20 @@ import {
   signal,
   viewChild,
 } from '@angular/core';
-import {
-  MatFormField,
-  MatFormFieldModule,
-  MatLabel,
-} from '@angular/material/form-field';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
-import { MatInput } from '@angular/material/input';
 import { FilterComponent } from './filter/filter.component';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
 
-const MATERIAL_MODULES = [MatTableModule, MatSortModule, MatPaginatorModule];
+const MATERIAL_MODULES = [
+  MatTableModule,
+  MatSortModule,
+  MatPaginatorModule,
+  MatButtonModule,
+  MatIconModule,
+];
 @Component({
   selector: 'app-grid',
   standalone: true,
@@ -33,6 +35,7 @@ export class GridComponent<T> implements OnInit {
   private readonly _paginator = viewChild.required<MatPaginator>(MatPaginator);
 
   valueToFilter = signal('');
+  sortableColumn = input<string[]>([]);
 
   constructor() {
     effect(
@@ -52,10 +55,5 @@ export class GridComponent<T> implements OnInit {
     this.dataSource.data = this.data();
     this.dataSource.sort = this._sort();
     this.dataSource.paginator = this._paginator();
-  }
-
-  applyFilter(event: Event): void {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 }

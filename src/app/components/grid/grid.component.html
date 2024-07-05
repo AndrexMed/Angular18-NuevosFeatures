@@ -1,4 +1,4 @@
-<div class="mat-elevation-z8">
+<div class="mt-1">
   <app-filter
     [label]="'Filter 123'"
     [placeholder]="'Filter 123'"
@@ -8,8 +8,23 @@
     @for (column of displayedColumns(); track $index) {
     <!-- Position Column -->
     <ng-container [matColumnDef]="column">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header="">{{ column }}</th>
-      <td mat-cell *matCellDef="let element">{{ element[column] }}</td>
+      @if (this.sortableColumn().includes(column)) {
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ column }}</th>
+      }@else{
+      <th mat-header-cell *matHeaderCellDef>{{ column }}</th>
+      }
+      <td mat-cell *matCellDef="let element">
+        {{ element[column] }}
+
+        @if(column === 'action'){
+        <button mat-icon-button color="primary">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-icon-button color="warn">
+          <mat-icon>delete</mat-icon>
+        </button>
+        }
+      </td>
     </ng-container>
     }
 
