@@ -17,10 +17,10 @@
         {{ element[column] }}
 
         @if(column === 'action'){
-        <button mat-icon-button color="primary">
+        <button (click)="openEditForm(element)" mat-icon-button color="primary">
           <mat-icon>edit</mat-icon>
         </button>
-        <button mat-icon-button color="warn">
+        <button (click)="deleteContact(element.id)" mat-icon-button color="warn">
           <mat-icon>delete</mat-icon>
         </button>
         }

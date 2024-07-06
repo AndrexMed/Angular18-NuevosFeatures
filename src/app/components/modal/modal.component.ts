@@ -37,10 +37,7 @@ export class ModalComponent implements OnInit {
 
   ngOnInit(): void {
     this._buildForm();
-    if (this._matDialog.isEditing) {
-      this.contactForm.patchValue(this._matDialog.data);
-      this._disabledForm();
-    }
+    this.contactForm.patchValue(this._matDialog.data);
   }
 
   getTittle(): string {
@@ -67,9 +64,5 @@ export class ModalComponent implements OnInit {
       email: ['', Validators.required],
       phone: ['', Validators.required],
     });
-  }
-
-  private _disabledForm(): void {
-    this.contactForm.disable();
   }
 }
