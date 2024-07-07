@@ -1,4 +1,4 @@
-import { Component, DestroyRef, inject, OnInit } from '@angular/core';
+import { Component, DestroyRef, inject, OnInit, signal } from '@angular/core';
 import { GridComponent } from '@components/grid/grid.component';
 import { ColumnKeys, Contact } from '../contact.interface';
 import { ContactsService } from '../contacts.service';
@@ -11,19 +11,18 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
   imports: [GridComponent],
   template: `
     <section>
-      @if(data.length > 0){
       <app-grid
         [displayedColumns]="displayedColumns"
-        [data]="data"
+        [data]="contacts()"
         [sortableColumn]="sortableColumn"
       />
-      }
     </section>
   `,
   styles: ``,
 })
 export class ListsComponent implements OnInit {
-  data: Contact[] = [];
+  contacts = signal<Contact[]>([]);
+  //data: Contact[] = [];
   displayedColumns: ColumnKeys<Contact> = [
     'id',
     'name',
@@ -45,7 +44,8 @@ export class ListsComponent implements OnInit {
       .getAllContacts()
       .pipe(
         takeUntilDestroyed(this._destroyRef),
-        tap((contacts: Contact[]) => (this.data = [...contacts]))
+        //tap((contacts: Contact[]) => (this.data = [...contacts]))
+        tap((contacts: Contact[]) => this.contacts.set(contacts)) //With signal
       )
       .subscribe();
   }

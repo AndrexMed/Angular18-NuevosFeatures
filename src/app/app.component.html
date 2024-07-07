@@ -1,8 +1,14 @@
 <section>
-    <mat-card>
-        <mat-card-content>
-            <app-toolbar (onNewContactEvent)="ondAddNewContact()"/>
-            <router-outlet />
-        </mat-card-content>
-    </mat-card>
+  <mat-card>
+    <mat-card-content>
+      @defer {
+      <app-toolbar (onNewContactEvent)="ondAddNewContact()" />
+      <router-outlet />
+      }@loading (minimum 1s){
+      <div class="spinner-container">
+        <mat-spinner mode="indeterminate"></mat-spinner>
+      </div>
+      }
+    </mat-card-content>
+  </mat-card>
 </section>

@@ -12,6 +12,7 @@ import { MatInput } from '@angular/material/input';
 import { ContactsService } from '@features/contacts/contacts.service';
 import { ModalService } from './modal.service';
 import { APP_CONSTANTS } from '@shared/constants';
+import { SnackBarService } from '@shared/services/snackBar.service';
 
 const MATERIAL_MODULES = [
   MatInput,
@@ -34,6 +35,7 @@ export class ModalComponent implements OnInit {
   private readonly _matDialog = inject(MAT_DIALOG_DATA);
   private readonly _contactSvc = inject(ContactsService);
   private readonly _modalSvc = inject(ModalService);
+  private readonly _snackBar = inject(SnackBarService);
 
   ngOnInit(): void {
     this._buildForm();
@@ -55,6 +57,7 @@ export class ModalComponent implements OnInit {
     }
 
     //Show Snackbar
+    this._snackBar.showSnackBar(message);
     this._modalSvc.closeModal();
   }
 
